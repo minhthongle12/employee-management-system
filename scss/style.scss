@@ -1,0 +1,48 @@
+body{
+  /* Safari 4-5, Chrome 1-9 */
+    background: -webkit-gradient(radial, center center, 0, center center, 460, from(#1a82f7), to(#2F2727));
+
+  /* Safari 5.1+, Chrome 10+ */
+    background: -webkit-radial-gradient(circle, #1a82f7, #2F2727);
+
+  /* Firefox 3.6+ */
+    background: -moz-radial-gradient(circle, #1a82f7, #2F2727);
+
+  /* IE 10 */
+    background: -ms-radial-gradient(circle, #1a82f7, #2F2727);
+    height:600px;
+}
+
+.centered-form{
+	margin-top: 60px;
+}
+
+.centered-form .panel{
+	background: rgba(255, 255, 255, 0.8);
+	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+  padding: 15px 0;
+}
+
+label.label-floatlabel {
+    font-weight: bold;
+    color: #46b8da;
+    font-size: 11px;
+}
+.center{
+  margin: auto;
+}
+.panel-body{
+  margin-top: 15px;
+}
+
+.sp-thongbao{
+  color: red;
+  margin-left: 2px;
+}
+.btn.btn-info{
+  cursor: pointer;
+}
+.ui-datepicker-trigger {
+    margin: 0 5px;
+    cursor: pointer;
+}

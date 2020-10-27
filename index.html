@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Quản lý nhân viên</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/animate.css" />
+    <link
+      rel="stylesheet"
+      href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container" style="margin-bottom: 30px">
+      <div class="row centered-form">
+        <div class="col-xs-12 col-sm-6 center wow fadeInUp">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title text-center">Quản lý nhân viên</h3>
+            </div>
+            <div class="panel-body">
+              <form role="form">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          name="ho"
+                          id="ho"
+                          class="form-control input-sm floatlabel"
+                          placeholder="Họ"
+                        />
+                        <span class="sp-thongbao" id="lastNameError"></span>
+                      </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          name="ten"
+                          id="ten"
+                          class="form-control input-sm"
+                          placeholder="Tên"
+                        />
+                        <span class="sp-thongbao" id="firstNameError"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      name="msnv"
+                      id="msnv"
+                      class="form-control input-sm"
+                      placeholder="Mã nhân viên"
+                    />
+                    <span class="sp-thongbao" id="idError"></span>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                      <div class="form-group">
+                        <div style="display: flex">
+                          <input
+                            type="text"
+                            name="ngaylam"
+                            id="datepicker"
+                            class="form-control input-sm"
+                            placeholder="Ngày làm"
+                          />
+                        </div>
+                        <span class="sp-thongbao" id="startedDateError"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <!-- Value cửa option là value của select -->
+                    <!-- Option ko có value thì text chính là value -->
+                    <select class="form-control" id="chucvu">
+                      <option value="">Chọn chức vụ</option>
+                      <option value="Sếp">Sếp</option>
+                      <option value="Trưởng phòng">Trưởng phòng</option>
+                      <option value="Nhân viên">Nhân viên</option>
+                    </select>
+                    <span class="sp-thongbao" id="positionError"></span>
+                  </div>
+
+                  <input
+                    type="button"
+                    value="Thêm Nhân Viên"
+                    class="btn btn-info btn-block"
+                    id="btnAdd"
+                    onclick="addEmp()"
+                  />
+                  <input
+                    type="button"
+                    value="Cập Nhật"
+                    style="display: none"
+                    class="btn btn-info btn-block"
+                    id="btnUpdate"
+                    onclick="updateEmpl()"
+                  />
+
+                  <button type="reset" id="btnReset" class="d-none">
+                    reset
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="hienthi" class="container">
+      <div class="w-50 mb-3">
+        <input
+          oninput="findEmpl()"
+          type="text"
+          id="txtSearch"
+          placeholder="Nhập mã hoặc tên"
+          class="form-control"
+        />
+      </div>
+      <table class="table text-white">
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>Họ và tên</th>
+            <th>Mã nhân viên</th>
+            <th>Ngày bắt đầu</th>
+            <th>Chức vụ</th>
+            <th>Lương</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyEmp"></tbody>
+      </table>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+    <script src="./js/employee.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+    <script src="WOW-master/dist/wow.min.js"></script>
+    <script type="text/javascript">
+      new WOW().init();
+    </script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+      $(function () {
+        $("#datepicker").datepicker({
+          showOn: "button",
+          buttonImage: "images/calendar.png",
+          buttonImageOnly: true,
+          buttonText: "Select date",
+          dateFormat: "mm/dd/yy",
+        });
+      });
+    </script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var d = new Date();
+
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+
+        var output =
+          (("" + month).length < 2 ? "0" : "") +
+          month +
+          "/" +
+          (("" + day).length < 2 ? "0" : "") +
+          day +
+          "/" +
+          d.getFullYear();
+        $("#datepicker").val(output);
+      });
+    </script>
+  </body>
+</html>
